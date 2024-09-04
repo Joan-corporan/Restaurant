@@ -120,7 +120,7 @@ const Modal = ({ isOpen, onClose, onSubmit, mesa, onUpdateMesa }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(totalPedido==0){return setValorPrecio("Error, no puedes agragra productos con valor 0")  } else{ setValorPrecio("")}
+      if(totalPedido==0){return setValorPrecio("Error, no puedes agregra productos con valor 0")  } else{ setValorPrecio("")}
       const validIds = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109];
 
       if (!validIds.includes(parseInt(formData.camarero_id))) {
@@ -265,7 +265,7 @@ const Modal = ({ isOpen, onClose, onSubmit, mesa, onUpdateMesa }) => {
           <div>
             <span>Total Pedido: {totalPedido} </span>
           </div>
-          <p className="rojo">{errorValorPrecio}</p>
+          <p id="rojo">{errorValorPrecio}</p>
           <button type="submit">Enviar</button>
         </form>
       </div>

@@ -1,4 +1,7 @@
  
+.App{
+margin-top: 2%;
+}
 .container-grid {
     display: flex;
     flex-wrap: wrap;
@@ -154,5 +157,5 @@
   .rojo{
     color: red;
   }
- /* Estilos de card */ 
+ 
   

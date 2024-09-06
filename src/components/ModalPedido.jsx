@@ -1,120 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
 import "../styles/modal.css";
-import axios from "axios";
+import { useModalPedido } from '../hooks/useModalPedido';
 
 const ModalPedido = ({ isOpen, onClose, mesa, onUpdateMesa }) => {
-  const endpointVerPedido = "http://localhost:4000/api/restaurant/verPedido";
-  const endpointUpdatePedido = "http://localhost:4000/api/restaurant/updatePedido";
-  const endpointGetProducts = "http://localhost:4000/api/restaurant/product";
-  
-  const [pedido, setPedido] = useState(null);
-  const [totalPedido, setTotalPedido] = useState(0);
-  const [productos, setProductos] = useState([]);
-  const [foodOptions, setFoodOptions] = useState([]);
-  const [drinkOptions, setDrinkOptions] = useState([]);
-  const [selectedFood, setSelectedFood] = useState("");
-  const [selectedDrink, setSelectedDrink] = useState("");
-  const [foodQuantity, setFoodQuantity] = useState(1);
-  const [drinkQuantity, setDrinkQuantity] = useState(1);
-
-  useEffect(() => {
-    const fetchPedido = async () => {
-      if (mesa) {
-        try {
-          const { data } = await axios.get(endpointVerPedido, {
-            params: { id_mesa: mesa },
-          });
-          setPedido(data.pedido);
-          calcularTotalPedido(data.pedido);
-        } catch (error) {
-          console.log("No hay pedido aun");
-        }
-      }
-    };
-
-    const fetchProducts = async () => {
-      try {
-        const { data } = await axios.get(endpointGetProducts);
-        setProductos(data);
-        setFoodOptions(data.filter(producto => producto.categoria_id === 601)); // Filtrar comidas
-        setDrinkOptions(data.filter(producto => producto.categoria_id === 600)); // Filtrar bebidas
-      } catch (error) {
-        console.log("No hay producos aun ");
-      }
-    };
-
-    fetchPedido();
-    fetchProducts();
-  }, [mesa]);
-
-  const calcularTotalPedido = (pedido) => {
-    if (pedido) {
-      let total = 0;
-      pedido.comida.forEach((item) => {
-        total += item.price * item.cantidad;
-      });
-      pedido.bebida.forEach((item) => {
-        total += item.price * item.cantidad;
-      });
-      setTotalPedido(total);
-    }
-  };
-
-  const handleAddFood = () => {
-    if (selectedFood) {
-      const producto = productos.find(p => p.id_product === parseInt(selectedFood));
-      if (producto) {
-        const updatedPedido = { ...pedido };
-        const foodItem = {
-          id: selectedFood,
-          cantidad: foodQuantity,
-          name_product: producto.name_product,
-          price: producto.price,
-        };
-        updatedPedido.comida.push(foodItem);
-        setPedido(updatedPedido);
-        calcularTotalPedido(updatedPedido);
-        setSelectedFood("");
-        setFoodQuantity(1);
-      }
-    }
-  };
-
-  const handleAddDrink = () => {
-    if (selectedDrink) {
-      const producto = productos.find(p => p.id_product === parseInt(selectedDrink));
-      if (producto) {
-        const updatedPedido = { ...pedido };
-        const drinkItem = {
-          id: selectedDrink,
-          cantidad: drinkQuantity,
-          name_product: producto.name_product,
-          price: producto.price,
-        };
-        updatedPedido.bebida.push(drinkItem);
-        setPedido(updatedPedido);
-        calcularTotalPedido(updatedPedido);
-        setSelectedDrink("");
-        setDrinkQuantity(1);
-      }
-    }
-  };
-
-  const handleUpdatePedido = async () => {
-    if (pedido && mesa) {
-      try {
-        // Incluye el ID de la mesa en el pedido
-        const updatedPedido = { ...pedido, id_mesa: mesa };
-        await axios.put(endpointUpdatePedido, updatedPedido);
-        alert("Pedido actualizado con éxito");
-        onUpdateMesa(); 
-      } catch (error) {
-        console.error("Error al actualizar el pedido:", error);
-      }
-    } else {
-      console.error("Pedido o ID de mesa no están definidos.");
-    }
-  };
+  const {
+    pedido,
+    totalPedido,
+    foodOptions,
+    drinkOptions,
+    selectedFood,
+    setSelectedFood,
+    selectedDrink,
+    setSelectedDrink,
+    foodQuantity,
+    setFoodQuantity,
+    drinkQuantity,
+    setDrinkQuantity,
+    handleAddFood,
+    handleAddDrink,
+    handleUpdatePedido,
+  } = useModalPedido(mesa);
 
   if (!isOpen) return null;
 
@@ -187,7 +92,7 @@ const ModalPedido = ({ isOpen, onClose, mesa, onUpdateMesa }) => {
               placeholder="Cantidad"
             />
             <button onClick={handleAddDrink}>Agregar Bebida</button>
-            <button onClick={handleUpdatePedido}>Actualizar Pedido</button>
+            <button onClick={() => handleUpdatePedido(onUpdateMesa)}>Actualizar Pedido</button>
           </>
         ) : (
           <p>No hay pedido para esta mesa.</p>

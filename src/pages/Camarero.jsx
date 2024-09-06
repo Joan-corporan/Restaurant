@@ -2,8 +2,10 @@ import Modal from "../components/Modal";
 import ModalPedido from "../components/ModalPedido";
 import "../styles/Camarero.css";
 import { useMesaData } from "../hooks/useMesaData";
+import { ActionButton } from "../hooks/ui/ActionButton";
 
 export const Camarero = () => {
+
   const {
     dataMesa,
     modalType,
@@ -14,7 +16,7 @@ export const Camarero = () => {
     handlePagado,
   } = useMesaData();
 
-  return (
+   return (
     <div className="App">
       <div className="container-grid">
         {dataMesa?.map((mesa) => (
@@ -24,49 +26,37 @@ export const Camarero = () => {
             </div>
             <div className="card-info">
               <h5>{mesa.estado_mesa}</h5>
-              <button
-                className={`tomarPedido ${
-                  mesa.estado_mesa === "pedido tomado" ? "disabled" : ""
-                }`}
+              <ActionButton
+                className={`tomarPedido ${mesa.estado_mesa === "pedido tomado" ? "disabled" : ""}`}
                 onClick={() => openModal(mesa.id_mesa, "tomarPedido")}
                 disabled={mesa.estado_mesa === "pedido tomado"}
               >
                 Tomar pedido {mesa.id_mesa}
-              </button>
+              </ActionButton>
             </div>
             <div className="card-buttons">
-              <button
-                className={`tomarPedido ${
-                  mesa.estado_mesa === "Libre" ? "disabled" : ""
-                }`}
+              <ActionButton
+                className={`tomarPedido ${mesa.estado_mesa === "Libre" ? "disabled" : ""}`}
                 onClick={() => openModal(mesa.id_mesa, "verPedido")}
                 disabled={mesa.estado_mesa === "Libre"}
               >
                 Ver pedido
-              </button>
+              </ActionButton>
 
-              <button
-                className={`tomarPedido ${
-                  mesa.estado_mesa === "pedido tomado" ||
-                  mesa.estado_mesa === "libre"
-                    ? "disabled"
-                    : ""
-                }`}
+              <ActionButton
+                className={`tomarPedido ${mesa.estado_mesa === "pedido tomado" || mesa.estado_mesa === "libre" ? "disabled" : ""}`}
                 onClick={() => handlePagado(mesa.id_mesa)}
-                disabled={
-                  mesa.estado_mesa === "pedido tomado" ||
-                  mesa.estado_mesa === "libre"
-                }
+                disabled={mesa.estado_mesa === "pedido tomado" || mesa.estado_mesa === "libre"}
               >
                 Pagado
-              </button>
+              </ActionButton>
 
-              <button
+              <ActionButton
                 className="tomarPedido"
                 onClick={() => handlePedidoEntregado(mesa.id_mesa)}
               >
                 Pedido entregado
-              </button>
+              </ActionButton>
             </div>
             <ModalPedido
               isOpen={modalType === "verPedido" && mesaIdModal === mesa.id_mesa}
@@ -75,9 +65,7 @@ export const Camarero = () => {
               onUpdateMesa={() => {}}
             />
             <Modal
-              isOpen={
-                modalType === "tomarPedido" && mesaIdModal === mesa.id_mesa
-              }
+              isOpen={modalType === "tomarPedido" && mesaIdModal === mesa.id_mesa}
               onClose={closeModal}
               mesa={mesaIdModal}
               onSubmit={() => {}}

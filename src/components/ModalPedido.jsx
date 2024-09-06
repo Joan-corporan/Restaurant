@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/modal.css";
 import axios from "axios";
 
-export const ModalPedido = ({ isOpen, onClose, mesa, onUpdateMesa }) => {
+const ModalPedido = ({ isOpen, onClose, mesa, onUpdateMesa }) => {
   const endpointVerPedido = "http://localhost:4000/api/restaurant/verPedido";
   const endpointUpdatePedido = "http://localhost:4000/api/restaurant/updatePedido";
   const endpointGetProducts = "http://localhost:4000/api/restaurant/product";
@@ -197,3 +197,4 @@ export const ModalPedido = ({ isOpen, onClose, mesa, onUpdateMesa }) => {
   );
 };
 
+export default ModalPedido;

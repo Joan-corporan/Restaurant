@@ -1,0 +1,47 @@
+.no-space-right {
+    margin: 0;
+    padding: 0;
+
+  }
+  .card {
+    width: 12rem;
+    margin: 5px; 
+    font-size: 0.75rem; 
+
+  }
+
+  .headCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-top: 10px;
+    
+  }
+  
+  .card-body {
+    padding: 0.5rem; 
+    height: 30px;
+    margin:0;
+  }
+  
+  .card-title, .card-text {
+    font-size: 0.85rem; 
+    margin: 0;
+
+  }
+  
+  .no-space-right {
+    margin-right: 0; 
+  }
+  
+  button.btn {
+    padding: 0.3rem 1.5rem;
+    font-size: 0.7rem;
+  }
+  
+ 
+  .btn-block {
+    width: 100%; /* Botón ocupa todo el ancho */
+  }
+  

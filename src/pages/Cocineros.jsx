@@ -1,11 +1,15 @@
+import { CardPedido } from "../components/CardPedido";
 
-
-export const Cocinero =()=>{
-
-    return (
-        <div>
-            <h1>Cocinero Page</h1>
-        </div>
-    )
-
-}
+export const Cocinero = () => {
+  return (
+    <div className="d-flex flex-wrap justify-content-start">
+      <CardPedido />
+      <CardPedido />
+      <CardPedido />
+      <CardPedido />
+      <CardPedido />
+      <CardPedido />
+      <CardPedido />
+    </div>
+  );
+};

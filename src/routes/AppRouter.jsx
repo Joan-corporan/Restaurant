@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
-import { Camarero } from "../pages/Camarero"
 import { Cocinero } from "../pages/Cocineros"
+import { Camarero } from "../pages/Camarero"
 
 
 export const AppRouter=()=>{

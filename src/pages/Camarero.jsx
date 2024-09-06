@@ -2,6 +2,7 @@ import Modal from "../components/Modal";
 import ModalPedido from "../components/ModalPedido";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import "../styles/Camarero.css";
 
 
 
@@ -23,7 +24,7 @@ export const Camarero=()=>{
     const fetchMesaData = async () => {
       try {
         const response = await axios.get(endpointMesa);
-        const sortedData = response.data.sort((a, b) => a.id_mesa - b.id_mesa); // Ordena las mesas por ID
+        const sortedData = response.data.sort((a, b) => a.id_mesa - b.id_mesa); 
         setDataMesa(sortedData);
       } catch (error) {
         console.log("Error fetching data: ", error);

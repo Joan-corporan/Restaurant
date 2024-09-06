@@ -2,7 +2,7 @@ import "../styles/CardPedido.css"; // Archivo de CSS personalizado
 
 export const CardPedido = () => {
   return (
-    <div className="card" style={{ width: "14rem", margin: "10px" }}>
+    <div className="card cardPedido" style={{ width: "14rem", margin: "10px" }}>
       <div className="card-body">
         <div className="d-flex justify-content-between headCard">
           <h5 className="card-title">Pedido: 300</h5>

@@ -3,7 +3,7 @@
     padding: 0;
 
   }
-  .card {
+  .card.cardPedido {
     width: 12rem;
     margin: 5px; 
     font-size: 0.75rem; 

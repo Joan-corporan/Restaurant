@@ -57,6 +57,15 @@ export const useModal = (mesa, onSubmit, onClose) => {
     });
   };
 
+  // Nueva función para manejar los cambios en inputs regulares
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   const addItem = (type) => {
     const newItem = { id: "", cantidad: 1 };
     setFormData({
@@ -133,7 +142,7 @@ export const useModal = (mesa, onSubmit, onClose) => {
   };
 
   return {
-    //Properties
+    // Properties
     productos,
     formData,
     totalPedido,
@@ -141,9 +150,9 @@ export const useModal = (mesa, onSubmit, onClose) => {
     comidaOptions,
     bebidaOptions,
 
-
-    //Methods
+    // Methods
     handleChange,
+    handleInputChange, // Nueva función expuesta
     addItem,
     deleteItem,
     handleSubmit,

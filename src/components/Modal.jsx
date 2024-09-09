@@ -11,6 +11,7 @@ const Modal = ({ isOpen, onClose, onSubmit, mesa }) => {
     comidaOptions,
     bebidaOptions,
     handleChange,
+    handleInputChange, // Agregado
     addItem,
     deleteItem,
     handleSubmit,
@@ -31,9 +32,7 @@ const Modal = ({ isOpen, onClose, onSubmit, mesa }) => {
               type="text"
               name="camarero_id"
               value={formData.camarero_id}
-              onChange={(e) =>
-                setFormData({ ...formData, camarero_id: e.target.value })
-              }
+              onChange={handleInputChange} // Cambio aquí
             />
           </label>
           <label>
@@ -41,9 +40,7 @@ const Modal = ({ isOpen, onClose, onSubmit, mesa }) => {
             <select
               name="genero"
               value={formData.genero}
-              onChange={(e) =>
-                setFormData({ ...formData, genero: e.target.value })
-              }
+              onChange={handleInputChange} // Cambio aquí
             >
               <option value="">Seleccione un género</option>
               <option value="F">Femenino</option>
@@ -52,7 +49,7 @@ const Modal = ({ isOpen, onClose, onSubmit, mesa }) => {
           </label>
           <label>
             Mesa:
-            <span>{formData.mesa_id}</span>{" "}
+            <span>{formData.mesa_id}</span>
           </label>
 
           <div>

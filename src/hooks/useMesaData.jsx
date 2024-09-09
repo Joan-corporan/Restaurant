@@ -66,10 +66,12 @@ export const useMesaData = () => {
   };
 
   return {
+    /* Properties */
     dataMesa,
     modals,
     modalType,
     mesaIdModal,
+    /* Methods */
     openModal,
     closeModal,
     handlePedidoEntregado,

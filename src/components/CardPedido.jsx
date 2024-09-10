@@ -22,7 +22,7 @@ export const CardPedido = () => {
           >
             <div className="card-body">
               <div className="d-flex justify-content-between headCard">
-                <h5 className="card-title">Pedido:</h5>
+                <h5 className="card-title">Pedido:{pedido.idPedido}</h5>
                 <p className="card-text">Mesa: {pedido.idMesa}</p>
               </div>
             </div>

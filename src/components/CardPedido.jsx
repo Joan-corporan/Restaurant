@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../styles/CardPedido.css";
 import { usePedido } from "../hooks/usePedido";
 
@@ -22,22 +22,34 @@ export const CardPedido = () => {
           >
             <div className="card-body">
               <div className="d-flex justify-content-between headCard">
-                <h5 className="card-title">Pedido:{pedido.idPedido}</h5>
+                <h5 className="card-title">Pedido: {pedido.idPedido}</h5>
                 <p className="card-text">Mesa: {pedido.idMesa}</p>
               </div>
             </div>
+
             <hr className="w-100 my-1" />
+
             <h6 className="text-center no-space-right">Bebidas</h6>
-            <p className="list-group-item no-space-right d-flex justify-content-between">
-              -{pedido.nombreBebida} <span>cantidad: {pedido.cantidadBebida}</span>
-            </p>
+            {pedido.bebidas.map((bebida, index) => (
+              <p
+                key={index}
+                className="list-group-item no-space-right d-flex justify-content-between"
+              >
+                -{bebida.nombre} -<span>cantidad: {bebida.cantidad}</span>
+              </p>
+            ))}
 
             <hr className="w-100 my-1" />
 
             <h6 className="text-center no-space-right">Comidas</h6>
-            <p className="list-group-item no-space-right d-flex justify-content-between">
-              -{pedido.nombreComida} -<span> cantidad: {pedido.cantidadComida}</span>
-            </p>
+            {pedido.comidas.map((comida, index) => (
+              <p
+                key={index}
+                className="list-group-item no-space-right d-flex justify-content-between"
+              >
+                -{comida.nombre} - <span> cantidad: {comida.cantidad}</span>
+              </p>
+            ))}
 
             <div className="card-body">
               <button type="buttonC" className="btn btn-primary btn-block">

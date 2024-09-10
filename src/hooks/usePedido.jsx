@@ -10,14 +10,13 @@ export const usePedido = () => {
   const getPedidos = async () => {
     try {
       const { data } = await axios.get(PEDIDOS_URL);
-      
+
       if (Array.isArray(data)) {
         const pedidosAgrupados = agruparPedidosPorId(data);
         setPedidos(pedidosAgrupados);
       } else {
         setError("La respuesta de la API no es válida.");
       }
-
     } catch (error) {
       console.error("Error al obtener los pedidos", error);
       setError("No se pudieron obtener los pedidos.");
@@ -25,25 +24,32 @@ export const usePedido = () => {
   };
 
   const agruparPedidosPorId = (pedidos) => {
-    return pedidos.reduce((acc, pedido) => {
-      const existingPedido = acc.find(p => p.idPedido === pedido.idPedido);
-  
+    console.log("Pedidos originales:", pedidos);
+    const pedidosAgrupados = pedidos.reduce((acc, pedido) => {
+      const existingPedido = acc.find((p) => p.idPedido === pedido.idPedido);
+
       if (existingPedido) {
-        // Actualiza la comida
         if (pedido.nombreComida) {
-          const comidaExistente = existingPedido.comidas.find(c => c.nombre === pedido.nombreComida);
-          if (!comidaExistente) {
+          const comidaExistente = existingPedido.comidas.find(
+            (c) => c.nombre === pedido.nombreComida
+          );
+          if (comidaExistente) {
+            comidaExistente.cantidad += pedido.cantidadComida;
+          } else {
             existingPedido.comidas.push({
               nombre: pedido.nombreComida,
               cantidad: pedido.cantidadComida,
             });
           }
         }
-  
-        // Actualiza la bebida
+
         if (pedido.nombreBebida) {
-          const bebidaExistente = existingPedido.bebidas.find(b => b.nombre === pedido.nombreBebida);
-          if (!bebidaExistente) {
+          const bebidaExistente = existingPedido.bebidas.find(
+            (b) => b.nombre === pedido.nombreBebida
+          );
+          if (bebidaExistente) {
+            bebidaExistente.cantidad += pedido.cantidadBebida;
+          } else {
             existingPedido.bebidas.push({
               nombre: pedido.nombreBebida,
               cantidad: pedido.cantidadBebida,
@@ -55,27 +61,35 @@ export const usePedido = () => {
           idPedido: pedido.idPedido,
           idMesa: pedido.idMesa,
           estadoMesa: pedido.estadoMesa,
-          comidas: pedido.nombreComida ? [{
-            nombre: pedido.nombreComida,
-            cantidad: pedido.cantidadComida,
-          }] : [],
-          bebidas: pedido.nombreBebida ? [{
-            nombre: pedido.nombreBebida,
-            cantidad: pedido.cantidadBebida,
-          }] : [],
+          comidas: pedido.nombreComida
+            ? [
+                {
+                  nombre: pedido.nombreComida,
+                  cantidad: pedido.cantidadComida,
+                },
+              ]
+            : [],
+          bebidas: pedido.nombreBebida
+            ? [
+                {
+                  nombre: pedido.nombreBebida,
+                  cantidad: pedido.cantidadBebida,
+                },
+              ]
+            : [],
         });
       }
-  
+
       return acc;
     }, []);
-  };
-  
 
+    console.log("Pedidos agrupados:", pedidosAgrupados);
+    return pedidosAgrupados;
+  };
 
   useEffect(() => {
-    getPedidos()
-  }, [])
-  
-  
+    getPedidos();
+  }, []);
+
   return { pedidos, error };
 };

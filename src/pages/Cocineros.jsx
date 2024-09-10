@@ -17,4 +17,4 @@ export const Cocinero = () => {
       <CardPedido />
     </div>
   );
-};W
+};

@@ -23,6 +23,7 @@
     padding: 0.5rem; 
     height: 30px;
     margin:0;
+    
   }
   
   .card-title, .card-text {
@@ -44,4 +45,4 @@
   .btn-block {
     width: 100%; /* Botón ocupa todo el ancho */
   }
-  
+

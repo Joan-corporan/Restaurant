@@ -8,14 +8,16 @@ export const CardPedido = () => {
 
   const { pedidoCompletado } = usePedidoCompletado();
 
+  console.log(pedidos)
+
   const handleCompletado = (idPedido) => {
     pedidoCompletado(idPedido)
       .then(() => {
-        // Opcional: Actualiza la UI o muestra un mensaje de éxito
+
         console.log(`Pedido ${idPedido} completado.`);
       })
       .catch((error) => {
-        // Opcional: Maneja errores
+
         console.error(`Error al completar el pedido ${idPedido}:`, error);
       });
   };
@@ -27,7 +29,7 @@ export const CardPedido = () => {
   return (
     <>
       {pedidos.length === 0 ? (
-        <p>No hay pedidos disponibles</p>
+        <p style={{fontSize:'30px'}}>No hay pedidos disponibles</p>
       ) : (
         pedidos.map((pedido) => (
           <div
@@ -66,7 +68,7 @@ export const CardPedido = () => {
               </p>
             ))}
 
-            <div className="card-body">
+            <div >
               <button
                 type="button"
                 className="btn btn-primary btn-block"

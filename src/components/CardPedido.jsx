@@ -1,9 +1,24 @@
 import React from "react";
 import "../styles/CardPedido.css";
 import { usePedido } from "../hooks/usePedido";
+import { usePedidoCompletado } from "../hooks/usePedidoCompletado";
 
 export const CardPedido = () => {
   const { pedidos, error } = usePedido();
+
+  const { pedidoCompletado } = usePedidoCompletado();
+
+  const handleCompletado = (idPedido) => {
+    pedidoCompletado(idPedido)
+      .then(() => {
+        // Opcional: Actualiza la UI o muestra un mensaje de éxito
+        console.log(`Pedido ${idPedido} completado.`);
+      })
+      .catch((error) => {
+        // Opcional: Maneja errores
+        console.error(`Error al completar el pedido ${idPedido}:`, error);
+      });
+  };
 
   if (error) {
     return <p>{error}</p>;
@@ -52,7 +67,11 @@ export const CardPedido = () => {
             ))}
 
             <div className="card-body">
-              <button type="button" className="btn btn-primary btn-block">
+              <button
+                type="button"
+                className="btn btn-primary btn-block"
+                onClick={() => handleCompletado(pedido.idPedido)}
+              >
                 Completado
               </button>
             </div>

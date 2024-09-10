@@ -12,7 +12,6 @@ export const usePedido = () => {
       const { data } = await axios.get(PEDIDOS_URL);
       
       if (Array.isArray(data)) {
-        // Agrupar los pedidos por idPedido
         const pedidosAgrupados = agruparPedidosPorId(data);
         setPedidos(pedidosAgrupados);
       } else {
@@ -30,7 +29,6 @@ export const usePedido = () => {
       const existingPedido = acc.find(p => p.idPedido === pedido.idPedido);
 
       if (existingPedido) {
-        // Añadir la comida y bebida al pedido existente
         existingPedido.comidas.push({
           nombre: pedido.nombreComida,
           cantidad: pedido.cantidadComida,
@@ -40,7 +38,6 @@ export const usePedido = () => {
           cantidad: pedido.cantidadBebida,
         });
       } else {
-        // Crear un nuevo pedido si no existe
         acc.push({
           idPedido: pedido.idPedido,
           idMesa: pedido.idMesa,

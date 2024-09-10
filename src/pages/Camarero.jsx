@@ -2,7 +2,8 @@ import Modal from "../components/Modal";
 import ModalPedido from "../components/ModalPedido";
 import "../styles/Camarero.css";
 import { useMesaData } from "../hooks/useMesaData";
-import { ActionButton } from "../hooks/ui/ActionButton";
+import { ActionButton } from "../components/ui/ActionButton";
+
 
 export const Camarero = () => {
 

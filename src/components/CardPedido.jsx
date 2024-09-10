@@ -52,7 +52,7 @@ export const CardPedido = () => {
             ))}
 
             <div className="card-body">
-              <button type="buttonC" className="btn btn-primary btn-block">
+              <button type="button" className="btn btn-primary btn-block">
                 Completado
               </button>
             </div>

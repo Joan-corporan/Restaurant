@@ -50,12 +50,13 @@ export const useModal = (mesa, onSubmit, onClose) => {
   const handleChange = (e, index, type) => {
     const { name, value } = e.target;
     const newItems = [...formData[type]];
-    newItems[index][name] = value;
+    newItems[index] = { ...newItems[index], [name]: value }; 
     setFormData({
       ...formData,
       [type]: newItems,
     });
   };
+  
 
   // Nueva función para manejar los cambios en inputs regulares
   const handleInputChange = (e) => {
@@ -68,11 +69,12 @@ export const useModal = (mesa, onSubmit, onClose) => {
 
   const addItem = (type) => {
     const newItem = { id: "", cantidad: 1 };
-    setFormData({
-      ...formData,
-      [type]: [...formData[type], newItem],
-    });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [type]: [...prevFormData[type], newItem],
+    }));
   };
+  
 
   const calcularTotalPedido = () => {
     let total = 0;

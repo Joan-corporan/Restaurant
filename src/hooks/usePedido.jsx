@@ -27,39 +27,55 @@ export const usePedido = () => {
   const agruparPedidosPorId = (pedidos) => {
     return pedidos.reduce((acc, pedido) => {
       const existingPedido = acc.find(p => p.idPedido === pedido.idPedido);
-
+  
       if (existingPedido) {
-        existingPedido.comidas.push({
-          nombre: pedido.nombreComida,
-          cantidad: pedido.cantidadComida,
-        });
-        existingPedido.bebidas.push({
-          nombre: pedido.nombreBebida,
-          cantidad: pedido.cantidadBebida,
-        });
+        // Actualiza la comida
+        if (pedido.nombreComida) {
+          const comidaExistente = existingPedido.comidas.find(c => c.nombre === pedido.nombreComida);
+          if (!comidaExistente) {
+            existingPedido.comidas.push({
+              nombre: pedido.nombreComida,
+              cantidad: pedido.cantidadComida,
+            });
+          }
+        }
+  
+        // Actualiza la bebida
+        if (pedido.nombreBebida) {
+          const bebidaExistente = existingPedido.bebidas.find(b => b.nombre === pedido.nombreBebida);
+          if (!bebidaExistente) {
+            existingPedido.bebidas.push({
+              nombre: pedido.nombreBebida,
+              cantidad: pedido.cantidadBebida,
+            });
+          }
+        }
       } else {
         acc.push({
           idPedido: pedido.idPedido,
           idMesa: pedido.idMesa,
           estadoMesa: pedido.estadoMesa,
-          comidas: [{
+          comidas: pedido.nombreComida ? [{
             nombre: pedido.nombreComida,
             cantidad: pedido.cantidadComida,
-          }],
-          bebidas: [{
+          }] : [],
+          bebidas: pedido.nombreBebida ? [{
             nombre: pedido.nombreBebida,
             cantidad: pedido.cantidadBebida,
-          }],
+          }] : [],
         });
       }
-
+  
       return acc;
     }, []);
   };
+  
+
 
   useEffect(() => {
-    getPedidos();
-  }, []);
-
+    getPedidos()
+  }, [])
+  
+  
   return { pedidos, error };
 };
